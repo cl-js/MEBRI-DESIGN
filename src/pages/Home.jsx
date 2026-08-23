@@ -4,7 +4,7 @@ import ProjectGallery from "@/components/home/ProjectGallery";
 import PhilosophySection from "@/components/home/PhilosophySection";
 import { Link } from "react-router-dom";
 
-const HERO_IMAGE = "/images/p1.jpg";
+const HERO_IMAGE = "https://i.imgur.com/Iz9Or1a.png";
 
 export default function Home() {
   return (

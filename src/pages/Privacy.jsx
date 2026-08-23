@@ -2,18 +2,43 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const sections = [
+
   {
-    title: "A legal disclaimer",
-    body: "The explanations and information provided on this page are only general and high-level explanations and information on how to write your own document of a Privacy Policy. You should not rely on this article as legal advice or as recommendations regarding what you should actually do, because we cannot know in advance what are the specific privacy policies you wish to establish between your business and your customers and visitors. We recommend that you seek legal advice to help you understand and to assist you in the creation of your own Privacy Policy.",
+     
+    body: "Last updated: August 23, 2026",
+  },
+  
+  {
+
+    title: "Privacy Policy",
+    title: "1. Introduction",
+    body: "Welcome to the official digital portfolio and consultation portal of Mebrahtom Tadesse. I am a custom traditional and modern fashion design atelier based in Addis Ababa, Ethiopia. I respect your privacy and am committed to protecting any personal information you share through this website. This Privacy Policy outlines how information is collected, used, and safeguarded when you visit the platform or commission custom tailoring services.",
   },
   {
-    title: "Privacy Policy - the basics",
-    body: "Having said that, a privacy policy is a statement that discloses some or all of the ways a website collects, uses, discloses, processes, and manages the data of its visitors and customers. It usually also includes a statement regarding the website's commitment to protecting its visitors' or customers' privacy, and an explanation about the different mechanisms the website is implementing in order to protect privacy.\n\nDifferent jurisdictions have different legal obligations of what must be included in a Privacy Policy. You are responsible to make sure you are following the relevant legislation to your activities and location.",
+    title: "2. Information We Collect",
+    body: "To provide exceptional custom tailoring, design consultations, and client service, the following types of information may be collected: Contact Information includes your full name, email address, phone number (+251 93 429 0520), and delivery or studio location details provided via contact or booking forms. Custom Measurement Data covers specific body measurements, sizing notes, fabric preferences, and stylistic requests shared during custom garment commissions or fitting appointments. Visual and Reference Material consists of design inspirations, reference images, or reference photos uploaded or shared by clients for bespoke tailoring projects. Technical Data includes standard analytics data, browser type, IP address, and device information gathered automatically through cookies to optimize your browsing experience.",
   },
   {
-    title: "What to include in the Privacy Policy",
-    body: "Generally speaking, a Privacy Policy often addresses these types of issues: the types of information the website is collecting and the manner in which it collects the data; an explanation about why is the website collecting these types of information; what are the website's practices on sharing the information with third parties; ways in which your visitors and customers can exercise their rights according to the relevant privacy legislation; the specific practices regarding minors' data collection; and much, much more.\n\nTo learn more about this, check out our article \"Creating a Privacy Policy\".",
+    title: "3. How We Use Your Information",
+    body: "The information collected is used exclusively for professional and operational purposes. This includes communicating regarding custom clothing orders, fitting schedules, and design consultations; drafting patterns, cutting garments, and constructing bespoke traditional or modern apparel tailored to your exact specifications; sending administrative updates, invoices, and completed project notifications; and improving website performance, user interface design, and digital asset layouts. ",
   },
+
+  {
+    title: "4. Data Sharing & Security",
+    body: "Strict confidentiality is maintained regarding all client records, measurements, and design concepts. Personal information is never sold, traded, or rented to third parties. Data is only accessible to authorized studio personnel directly involved in crafting your garments. Appropriate technical and organizational security measures are implemented to protect your information against unauthorized access, alteration, or disclosure.",
+  },
+
+  {
+    title: "5. Your Rights",
+    body: "You have the right to request access to the personal data held about you, ask for corrections to your sizing or contact records, or request the deletion of your data from the active client database at any time by contacting me directly.",
+  },
+
+  {
+    title: "6. Contact Us",
+    body: "If you have any questions, concerns, or requests regarding this Privacy Policy or your personal information, please reach out directly to the Mebrahtom Tadesse Atelier in Addis Ababa, Ethiopia, via email at studio@mebri.com or by phone at +251 93 429 0520.",
+  },
+
+  
 ];
 
 export default function Privacy() {
