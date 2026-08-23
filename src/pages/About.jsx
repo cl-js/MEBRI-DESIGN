@@ -4,7 +4,7 @@ import Timeline from "@/components/about/Timeline";
 import SkillsGrid from "@/components/about/SkillsGrid";
 
 
-const PORTRAIT = "/images/aman.png";
+const PORTRAIT = "/public/images/aman.png";
 
 function FadeIn({ children, className = "", delay = 0 }) {
   const ref = useRef(null);
