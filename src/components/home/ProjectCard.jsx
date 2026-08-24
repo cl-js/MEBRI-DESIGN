@@ -43,7 +43,7 @@ export default function ProjectCard({ project, index }) {
           <div className="image-hover-zone group/img relative overflow-hidden aspect-[4/5]">
             <img
               src={project.heroImage}
-              alt={`${project.title}  -  ${project.subtitle}`}
+              alt={`${project.title} - ${project.subtitle}`}
               className="w-full h-full object-cover object-center transition-transform duration-700 ease-out"
               style={{ transition: "transform 0.7s cubic-bezier(0.65,0,0.35,1)" }}
               loading="lazy"
@@ -61,18 +61,18 @@ export default function ProjectCard({ project, index }) {
         <div
           className={`${
             isEven ? "md:col-start-9 md:col-span-4" : "md:col-start-1 md:col-span-4 md:row-start-1"
-          } flex flex-col justify-end py-4`}
+          } flex flex-col justify-end md:justify-center md:items-center md:text-center md:h-full py-4 md:py-0`}
         >
-          <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase mb-2">
-            {project.id}/{String(projectCount).padStart(2, "0")}  -  {project.year}
+          <span className="font-mono text-xs md:text-xl tracking-widest text-muted-foreground uppercase mb-3">
+            {project.id}/{String(projectCount).padStart(2, "0")} - {project.year}
           </span>
-          <h3 className="font-body text-3xl md:text-4xl font-light tracking-tight text-foreground group-hover:text-cobalt transition-colors duration-300 mb-2">
+          <h3 className="font-body text-3xl md:text-7xl font-light tracking-tight text-foreground group-hover:text-cobalt transition-colors duration-300 mb-4">
             {project.title}
           </h3>
-          <p className="font-body text-sm text-muted-foreground mb-3">
+          <p className="font-body text-sm md:text-2xl text-muted-foreground mb-4">
             {project.subtitle}
           </p>
-          <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
+          <span className="font-mono text-xs md:text-lg tracking-widest text-muted-foreground uppercase">
             {project.category}
           </span>
         </div>
