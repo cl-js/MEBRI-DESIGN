@@ -114,7 +114,7 @@ export default function KineticFooter() {
             className="font-mono text-xs tracking-widest uppercase text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4 hidden">
             Commission a Piece &gt;
           </Link>
-          <span className="font-mono text-xs text-muted-foreground">(c) 2026 Mebrahtom Tadesse. Built on Aman.Dev.</span>
+          <span className="font-mono text-xs text-muted-foreground">&copy; 2026 Mebrahtom Tadesse. Built on Aman.Dev.</span>
         </div>
       </div>
     </footer>);

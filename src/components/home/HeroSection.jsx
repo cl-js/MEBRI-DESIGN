@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useProjectData } from "@/lib/ProjectDataContext";
 import { projects as bundledProjects } from "@/lib/projectData";
 
-const INFO_TEXTS = ["Fashion Designer  /  Cutter  /  Tailor  /  Model", "BASED: Addis Ababa", "studio@mebri.com"];
+const INFO_TEXTS = ["Fashion Designer  /  Cutter  /  Tailor  /  Model",];
 
 function TypewriterInfo({ isInView }) {
   const [visibleTexts, setVisibleTexts] = useState([]);
