@@ -14,6 +14,7 @@ import Contact from '@/pages/Contact';
 import Privacy from '@/pages/Privacy';
 import Accessibility from '@/pages/Accessibility';
 import Admin from '@/pages/Admin';
+import Gallery from '@/pages/Gallery';
 import { ProjectDataProvider } from '@/lib/ProjectDataContext';
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
               <Route path="/project/:slug" element={<ProjectDetail />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/accessibility" element={<Accessibility />} />
