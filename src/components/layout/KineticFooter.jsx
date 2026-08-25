@@ -103,7 +103,7 @@ export default function KineticFooter() {
             <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">Legal</h3>
             <div className="flex flex-col gap-3">
               <Link to="/privacy" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Privacy Policy</Link>
-              <Link to="/accessibility" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Accessibility Statement</Link>
+              <Link to="/accessibility" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Accessibility</Link>
             </div>
           </div>
         </div>
