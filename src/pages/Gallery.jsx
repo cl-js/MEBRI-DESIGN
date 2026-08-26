@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { createPortal } from "react-dom";
 
 const ASSET_ROOT = "https://wicesnjxvsfgyhgcqogc.supabase.co/storage/v1/object/public/Mebri-design";
 const galleryImages = [
@@ -11,6 +12,8 @@ const cinematicFrames = galleryImages.slice(0, 8);
 
 export default function Gallery() {
 	const [frame, setFrame] = useState(0);
+	const [selectedImage, setSelectedImage] = useState(null);
+	const imageRefs = useRef([]);
 
 	useEffect(() => {
 		const timer = window.setInterval(() => {
@@ -18,6 +21,20 @@ export default function Gallery() {
 		}, 4200);
 		return () => window.clearInterval(timer);
 	}, []);
+
+	useEffect(() => {
+		if (selectedImage === null) return undefined;
+		const closeOnEscape = (event) => {
+			if (event.key === "Escape") setSelectedImage(null);
+		};
+		document.addEventListener("keydown", closeOnEscape);
+		document.body.style.overflow = "hidden";
+		window.requestAnimationFrame(() => imageRefs.current[selectedImage]?.scrollIntoView({ behavior: "instant", block: "nearest", inline: "center" }));
+		return () => {
+			document.removeEventListener("keydown", closeOnEscape);
+			document.body.style.overflow = "";
+		};
+	}, [selectedImage]);
 
 	return (
 		<div className="bg-charcoal text-gallery">
@@ -86,12 +103,14 @@ export default function Gallery() {
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-12 md:gap-6">
 					{galleryImages.map((src, index) => (
 						<figure key={src} className={`group overflow-hidden ${index % 5 === 0 ? "md:col-span-7" : "md:col-span-5"}`}>
-							<img
-								src={src}
-								alt={`Mebri Design gallery frame ${index + 1}`}
-								className="block h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
-								loading="lazy"
-							/>
+							<button type="button" onClick={() => setSelectedImage(index)} className="block h-full w-full cursor-zoom-in text-left focus:outline-none focus:ring-2 focus:ring-charcoal">
+								<img
+									src={src}
+									alt={`Mebri Design gallery frame ${index + 1}`}
+									className="block h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+									loading="lazy"
+								/>
+							</button>
 							<figcaption className="flex justify-between py-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
 								<span>Frame {String(index + 1).padStart(2, "0")}</span>
 								<span>O{index === 0 ? "3-1" : index >= 10 ? index - 9 : index + 3}</span>
@@ -100,6 +119,19 @@ export default function Gallery() {
 					))}
 				</div>
 			</section>
+
+			{selectedImage !== null && createPortal(
+				<div className="fixed inset-0 z-50 bg-charcoal" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
+					<button type="button" onClick={() => setSelectedImage(null)} className="absolute right-5 top-5 z-10 font-mono text-xs uppercase tracking-widest text-white/80 transition hover:text-white" aria-label="Close image viewer">Close</button>
+					<div className="gallery-viewer-track flex h-full snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain md:gap-8" onClick={(event) => { if (event.target === event.currentTarget) setSelectedImage(null); }}>
+						{galleryImages.map((src, index) => (
+							<div key={src} ref={(element) => { imageRefs.current[index] = element; }} className="flex h-full min-w-full snap-center items-center justify-center">
+								<img src={src} alt={`Mebri Design gallery frame ${index + 1}`} className="h-full w-full object-cover" />
+							</div>
+						))}
+					</div>
+					<p className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-widest text-white/60">Swipe or scroll to explore</p>
+				</div>, document.body)}
 		</div>
 	);
 }

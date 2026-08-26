@@ -194,6 +194,78 @@ html {
   animation-duration: 120s;
 }
 
+.gallery-viewer-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gallery-viewer-track::-webkit-scrollbar {
+  display: none;
+}
+
+.mebri-wordmark-wrap {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mebri-wordmark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(6.5rem, 18vw, 16rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+  color: hsl(var(--foreground));
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .footer-shell {
+    background: transparent;
+  }
+
+  .footer-panel {
+    background: #111111;
+  }
+}
+
+.light .footer-panel {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.light .footer-panel h2 {
+  color: hsl(var(--foreground));
+}
+
+.light .footer-panel p,
+.light .footer-panel a,
+.light .footer-panel label,
+.light .footer-panel select {
+  color: hsl(var(--foreground));
+}
+
+@media (max-width: 767px) {
+  .mebri-wordmark-wrap {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .mebri-wordmark {
+    width: 100vw;
+    display: block;
+    font-size: clamp(5.5rem, 32vw, 9rem);
+    letter-spacing: -0.1em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mebri-wordmark {
+    text-align: center;
+    font-size: clamp(8rem, 22vw, 13rem);
+  }
+}
+
 .social-orbit {
   position: relative;
   width: min(82vw, 520px);

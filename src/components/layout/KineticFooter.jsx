@@ -2,129 +2,93 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { languageOptions, useLanguage } from "@/lib/LanguageContext";
 
-const services = ["Bespoke Tailoring", "Traditional Wear", "Fashion Design", "Pattern Cutting", "Runway Modeling", "Bridal Couture"];
-const awards = ["Addis Fashion Week", "Hub of Africa Fashion Week", "Ethiopian Heritage Award", "Africa Fashion International", "Vogue Africa", "FESPACO"];
+const footerGroups = [
+  {
+    heading: "Explore",
+    links: [
+      { label: "Collections", href: "/projects" },
+      { label: "About Mebri", href: "/about" },
+      { label: "Journal", href: "/gallery" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    heading: "Connect",
+    links: [
+      { label: "Instagram", href: "https://instagram.com" },
+      { label: "TikTok", href: "https://tiktok.com" },
+      { label: "WhatsApp", href: "https://wa.me/251934290520" },
+      { label: "Email", href: "mailto:studio@mebri.com" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Accessibility", href: "/accessibility" },
+    ],
+  },
+];
 
-function MarqueeRow({ items, direction = "left" }) {
-  const doubled = [...items, ...items, ...items, ...items];
-  const [hoveredIndex, setHoveredIndex] = React.useState(null);
-  const trackRef = React.useRef(null);
-  const savedX = React.useRef(0);
-
-  const handleMouseEnter = (i) => {
-    setHoveredIndex(i);
-    if (trackRef.current) {
-      const matrix = new DOMMatrix(getComputedStyle(trackRef.current).transform);
-      savedX.current = matrix.m41;
-      trackRef.current.style.animationPlayState = "paused";
-      trackRef.current.style.transform = `translateX(${savedX.current}px)`;
-      trackRef.current.style.animation = "none";
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-    if (trackRef.current) {
-      const totalWidth = trackRef.current.scrollWidth / 2;
-      const currentX = savedX.current;
-      const progress = direction === "right" ?
-      1 - Math.abs(currentX) / totalWidth :
-      Math.abs(currentX) / totalWidth;
-      const delay = -(progress * 60);
-      trackRef.current.style.transform = "";
-      trackRef.current.style.animation = `marquee 60s linear ${delay}s infinite`;
-      trackRef.current.style.animationDirection = direction === "right" ? "reverse" : "normal";
-    }
-  };
-
-  return (
-    <div className="overflow-hidden whitespace-nowrap">
-      <div
-        ref={trackRef}
-        className="marquee-track inline-flex"
-        style={{ animationDirection: direction === "right" ? "reverse" : "normal" }}>
-        {doubled.map((item, i) =>
-        <React.Fragment key={i}>
-            <span
-            className="text-4xl md:text-6xl lg:text-8xl font-mono font-light tracking-tight uppercase select-none leading-none cursor-default transition-colors duration-200"
-            onMouseEnter={() => handleMouseEnter(i)}
-            onMouseLeave={handleMouseLeave}>
-              <span
-              className="transition-all duration-300"
-              style={{
-                color: hoveredIndex === i ? '#2E5BFF' : hoveredIndex !== null ? 'inherit' : undefined,
-                filter: hoveredIndex !== null && hoveredIndex !== i ? 'blur(4px)' : 'none',
-                opacity: hoveredIndex === i ? 1 : hoveredIndex !== null ? 0.15 : 0.1
-              }}>
-              {item}</span>
-            </span>
-            <span
-            className="text-4xl md:text-6xl lg:text-8xl font-mono font-light text-foreground select-none leading-none mx-2 md:mx-4 transition-all duration-300"
-            style={{ filter: hoveredIndex !== null ? 'blur(4px)' : 'none', opacity: hoveredIndex !== null ? 0.15 : 0.1 }}>
-             / </span>
-          </React.Fragment>
-        )}
-      </div>
-    </div>);
+function FooterLink({ href, children }) {
+  const className = "font-body text-sm text-foreground transition-colors duration-200 hover:text-[#ddd0c5] focus:outline-none focus:ring-2 focus:ring-[#ddd0c5] focus:ring-offset-4 focus:ring-offset-[#111111]";
+  if (href.startsWith("http") || href.startsWith("mailto:")) {
+    return <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className={className}>{children}</a>;
+  }
+  return <Link to={href} className={className}>{children}</Link>;
 }
 
 export default function KineticFooter() {
   const { language, setLanguage, text } = useLanguage();
+
   return (
-    <footer className="relative py-16 md:pt-24 md:pb-[26px] overflow-hidden">
-      <div className="space-y-4 mb-8 md:mb-24">
-        <MarqueeRow items={services} direction="left" />
-      </div>
+    <footer className="footer-shell relative overflow-hidden bg-transparent text-[#f5f5f7] lg:px-6 lg:py-6">
+      <div className="footer-panel mx-auto max-w-[1600px] px-4 pb-4 pt-5 text-center sm:px-6 sm:pb-5 sm:pt-6 md:px-8 md:pb-6 md:pt-8 lg:px-8 lg:pb-6 lg:pt-8 md:max-lg:text-center">
+        <div className="grid gap-7 sm:gap-8 md:max-lg:grid-cols-1 md:max-lg:justify-items-center lg:grid-cols-1 lg:justify-items-center lg:gap-8">
+          <div className="max-w-[470px] md:max-lg:max-w-none lg:max-w-none">
+            <div className="flex items-start justify-between gap-3 md:justify-center">
+              <div className="flex-1 md:w-[min(52vw,380px)] md:flex-none">
+                <h2 className="font-serif text-[2.35rem] leading-[0.8] tracking-[-0.06em] text-[#f0ece4] sm:text-[3.1rem]">
+                  LET’S CREATE<br />SOMETHING<br />BEAUTIFUL.
+                </h2>
+                <p className="mx-auto mt-4 max-w-[260px] text-sm leading-relaxed text-[#d8d0c7] sm:text-base md:text-lg">We look forward to hearing from you.</p>
+                <Link to="/contact" className="mt-6 inline-flex items-center gap-3 border-b border-[#d8d0c7]/70 pb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5f5f7] transition-colors duration-200 hover:border-[#f5f5f7] hover:text-[#ddd0c5]">Get in touch <span aria-hidden="true">→</span></Link>
+              </div>
+              <Link to="/contact" aria-label="Contact Mebri Design" className="-translate-y-[20%] hidden flex-shrink-0 md:block lg:block md:translate-y-[-20%] md:self-start">
+                <img src="/images/mebri-design-logo.png" alt="Mebri Design" className="mt-0 block h-[11.76rem] w-[10.92rem] object-contain md:h-[18.9rem] md:w-[18.9rem]" />
+              </Link>
+            </div>
+          </div>
 
-      <div className="px-6 md:px-8 lg:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-8 mb-12 md:mb-16">
-          <div>
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">{text.navigation}</h3>
-            <div className="flex flex-col gap-3">
-              <Link to="/" className="font-body text-sm text-foreground hover:text-cobalt transition-colors">{text.home}</Link>
-              <Link to="/about" className="font-body text-sm text-foreground hover:text-cobalt transition-colors">{text.about}</Link>
-              <Link to="/contact" className="font-body text-sm text-foreground hover:text-cobalt transition-colors">{text.contact}</Link>
-            </div>
-          </div>
-          <div className="ml-[15px] md:ml-0">
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">{text.social}</h3>
-            <div className="flex flex-col gap-3">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Instagram</a>
-              <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Behance</a>
-              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Pinterest</a>
-            </div>
-          </div>
-          <div>
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">Contact</h3>
-            <div className="flex flex-col gap-3">
-              <a href="mailto:studio@mebri.com" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">studio@mebri.com</a>
-              <span className="font-body text-sm text-muted-foreground">Addis Ababa, Ethiopia</span>
-            </div>
-          </div>
-          <div>
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">{text.legal}</h3>
-            <div className="flex flex-col gap-3">
-              <Link to="/privacy" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Privacy Policy</Link>
-              <Link to="/accessibility" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Accessibility</Link>
-            </div>
+          <div className="grid w-full max-w-[700px] grid-cols-3 gap-3 sm:gap-6 justify-items-center">
+            {footerGroups.map((group) => (
+              <div key={group.heading} className="min-w-0 lg:min-w-[180px]">
+                <h3 className="mb-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[#b5b0aa]">{group.heading}</h3>
+                <div className="flex flex-col gap-2.5 sm:gap-3">
+                  {group.links.map((link) => <FooterLink key={link.label} href={link.href}>{link.label}</FooterLink>)}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 pt-8 md:pt-0 border-t border-border md:border-t-0">
-          <label className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            <span>{text.switchLanguage}</span>
-            <select aria-label={text.switchLanguage} value={language} onChange={(event) => setLanguage(event.target.value)} className="border border-border bg-background px-2 py-2 text-foreground">
-              {languageOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-            </select>
-          </label>
-          <Link
-            to="/contact"
-            className="font-mono text-xs tracking-widest uppercase text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4 hidden">
-            {text.commission} &gt;
-          </Link>
-          <span className="font-mono text-xs text-muted-foreground">&copy; 2026 Mebrahtom Tadesse. Built on Aman.Dev.</span>
+        <div className="mt-6 border-t border-white/10 pt-4 sm:mt-7 sm:pt-5 md:mt-8 md:pt-6 lg:mt-10 lg:pt-6">
+          <div className="relative flex flex-col gap-4 md:max-lg:items-center lg:items-center">
+            <div className="mebri-wordmark-wrap" aria-label="Mebri wordmark"><div className="mebri-wordmark" aria-label="MEBRI">MEBRI</div></div>
+            <div className="flex flex-col gap-3 text-left sm:flex-row sm:items-end sm:justify-between md:max-lg:block lg:block lg:text-center">
+              <div className="whitespace-nowrap text-sm text-[#d8d0c7] md:text-base md:max-lg:-translate-x-[5px]">© 2026 Mebri Design · All rights reserved.</div>
+              <label className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5f5f7] md:max-lg:absolute md:max-lg:bottom-0 md:max-lg:left-0 lg:absolute lg:bottom-0 lg:left-0">
+                <span className="sr-only">{text.switchLanguage}</span>
+                <select value={language} onChange={(event) => setLanguage(event.target.value)} aria-label={text.switchLanguage} className="cursor-pointer appearance-none bg-transparent pr-5 text-[#f5f5f7] outline-none transition-colors duration-200 hover:text-[#ddd0c5]">
+                  {languageOptions.map((option) => <option key={option.value} value={option.value} className="bg-[#111111] text-[#f5f5f7]">{option.label}</option>)}
+                </select>
+                <span className="pointer-events-none -ml-3" aria-hidden="true">⌄</span>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
-    </footer>);
+    </footer>
+  );
 
 }

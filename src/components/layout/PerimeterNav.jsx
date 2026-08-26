@@ -330,7 +330,7 @@ export default function PerimeterNav() {
         {/* Bottom Right  -  CTA */}
         <Link
           to="/contact"
-          className="pointer-events-auto absolute bottom-[26px] right-[26px] font-mono text-xs md:text-sm tracking-widest uppercase hover:text-cobalt transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4"
+          className="pointer-events-auto absolute bottom-[26px] right-[26px] font-mono text-xs md:text-sm tracking-widest uppercase hover:text-cobalt transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4 md:max-lg:hidden"
           style={{ color: isProjectPage && heroVisible ? '#F5F5F7' : undefined }}
         >
           {text.commission} &gt;
