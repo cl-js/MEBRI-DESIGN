@@ -65,12 +65,12 @@ export default function Contact() {
               Contact
             </span>
             <h1 className="font-body text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-foreground mb-6 leading-tight">
-              Let's create something
+        
               <br />
-              <span className="text-muted-foreground">you'll wear with pride.</span>
+              <span className="text-muted-foreground">Get in touch</span>
             </h1>
             <p className="font-body text-lg text-muted-foreground max-w-2xl">
-              Whether you're dreaming of a bespoke Habesha Kemis, a bridal ensemble, or a reimagined traditional piece, I'd love to hear your vision. Share it below and I'll respond within 48 hours.
+              Whether you're dreaming of a bespoke Habesha Kemis, a bridal ensemble, or a reimagined traditional piece, I'd love to hear your vision.
             </p>
           </FadeIn>
         </div>
