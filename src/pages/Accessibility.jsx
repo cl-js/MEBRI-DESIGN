@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const sections = [
 
@@ -32,6 +33,17 @@ const sections = [
 ];
 
 export default function Accessibility() {
+  const { language } = useLanguage();
+  const labels = {
+    en: { legal: "Legal", title: "Accessibility" },
+    am: { legal: "ህጋዊ", title: "ተደራሽነት" },
+    ti: { legal: "ሕጋዊ", title: "ተበጻሕነት" },
+  }[language];
+  const sectionTitles = language === "am"
+    ? ["", "1. የተደራሽነት መግለጫ", "2. የድር ተደራሽነት ምንድነው", "3. በዚህ ድረ-ገጽ ላይ የተደረጉ ማስተካከያዎች", "4. ጥያቄዎች፣ ችግሮች እና አስተያየቶች"]
+    : language === "ti"
+      ? ["", "1. መግለጺ ተበጻሕነት", "2. ተበጻሕነት ዌብ እንታይ እዩ", "3. ኣብዚ ሳይት ዝተገብሩ ምምሕያሻት", "4. ሕቶታት፣ ጸገማትን ሓሳባትን"]
+      : sections.map((section) => section.title || "");
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -45,10 +57,10 @@ export default function Accessibility() {
           transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
         >
           <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground block mb-6">
-            Legal
+            {labels.legal}
           </span>
           <h1 className="font-body text-5xl md:text-6xl font-light tracking-tight text-foreground mb-16">
-            Accessibility
+            {labels.title}
           </h1>
         </motion.div>
 
@@ -63,7 +75,7 @@ export default function Accessibility() {
             >
               {section.title && (
                 <h2 className="font-body text-xl font-medium text-foreground mb-4">
-                  {section.title}
+                  {sectionTitles[i] || section.title}
                 </h2>
               )}
               {section.body && section.body.split("\n\n").map((para, j) => (

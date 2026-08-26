@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import { useProjectData } from "@/lib/ProjectDataContext";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function ProjectGallery() {
+  const { text } = useLanguage();
   const { projects } = useProjectData();
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-80px" });
@@ -19,10 +21,10 @@ export default function ProjectGallery() {
         className="mb-16 md:mb-24"
       >
         <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground block mb-4">
-          Selected Works
+          {text.selectedWorks}
         </span>
         <h2 className="font-body text-4xl md:text-6xl font-light tracking-tight text-foreground max-w-[60%]">
-          Selected collections that define <span>my craft</span>
+          {text.selectedWorksHeading}
         </h2>
       </motion.div>
 
@@ -38,7 +40,7 @@ export default function ProjectGallery() {
           className="font-mono text-2xl md:text-3xl tracking-widest uppercase font-light pb-1 focus:outline-none animated-gradient-text"
           style={{ borderBottom: 'none' }}
         >
-          All Projects &gt;
+          {text.allProjects} &gt;
         </Link>
       </div>
     </section>

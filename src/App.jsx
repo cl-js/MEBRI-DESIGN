@@ -15,12 +15,15 @@ import Privacy from '@/pages/Privacy';
 import Accessibility from '@/pages/Accessibility';
 import Admin from '@/pages/Admin';
 import Gallery from '@/pages/Gallery';
+import UpdateContact from '@/pages/UpdateContact';
 import { ProjectDataProvider } from '@/lib/ProjectDataContext';
+import { LanguageProvider } from '@/lib/LanguageContext';
 
 export default function App() {
   return (
+    <LanguageProvider>
     <ProjectDataProvider>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <Routes>
@@ -33,6 +36,7 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/accessibility" element={<Accessibility />} />
+              <Route path="/update-contact" element={<UpdateContact />} />
             </Route>
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<PageNotFound />} />
@@ -42,5 +46,6 @@ export default function App() {
       </QueryClientProvider>
       </ThemeProvider>
     </ProjectDataProvider>
+    </LanguageProvider>
   );
 }

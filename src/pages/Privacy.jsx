@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const sections = [
 
@@ -42,6 +43,17 @@ const sections = [
 ];
 
 export default function Privacy() {
+  const { language } = useLanguage();
+  const labels = {
+    en: { legal: "Legal", title: "Privacy Policy", updated: "Last updated: August 23, 2026" },
+    am: { legal: "ህጋዊ", title: "የግላዊነት መመሪያ", updated: "መጨረሻ የተሻሻለው፦ ነሐሴ 23፣ 2026" },
+    ti: { legal: "ሕጋዊ", title: "ፖሊሲ ምስጢራዊነት", updated: "መወዳእታ ዝተሓደሰ፦ 23 ነሓሰ 2026" },
+  }[language];
+  const sectionTitles = language === "am"
+    ? ["", "1. መግቢያ", "2. የምንሰበስበው መረጃ", "3. መረጃዎን እንዴት እንጠቀማለን", "4. የመረጃ መጋራት እና ደህንነት", "5. መብቶችዎ", "6. ያግኙን"]
+    : language === "ti"
+      ? ["", "1. መእተዊ", "2. ዝእክቦ ሓበሬታ", "3. ንሓበሬታኹም ብኸመይ ንጥቀመሉ", "4. ምክፋልን ድሕነትን ሓበሬታ", "5. መሰላትኩም", "6. ርኸቡና"]
+      : sections.map((section) => section.title || "");
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -55,10 +67,10 @@ export default function Privacy() {
           transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
         >
           <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground block mb-6">
-            Legal
+            {labels.legal}
           </span>
           <h1 className="font-body text-5xl md:text-6xl font-light tracking-tight text-foreground mb-16">
-            Privacy Policy
+            {labels.title}
           </h1>
         </motion.div>
 
@@ -72,7 +84,7 @@ export default function Privacy() {
               className="border-t border-border pt-10"
             >
               <h2 className="font-body text-xl font-medium text-foreground mb-4">
-                {section.title}
+                {sectionTitles[i] || section.title}
               </h2>
               {section.body.split("\n\n").map((para, j) => (
                 <p key={j} className="font-body text-base text-muted-foreground leading-relaxed mb-4 last:mb-0">

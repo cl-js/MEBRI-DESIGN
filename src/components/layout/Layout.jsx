@@ -5,6 +5,7 @@ import KineticFooter from "./KineticFooter";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import SEO from "./../SEO";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -36,6 +37,7 @@ export default function Layout() {
 
   return (
     <>
+      <SEO />
       <PerimeterNav />
       <div id="smooth-wrapper" style={{ overflow: "hidden", position: "fixed", height: "100%", width: "100%", top: 0, left: 0 }}>
         <div id="smooth-content" className="ghost-grid min-h-screen">

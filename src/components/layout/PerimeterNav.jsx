@@ -4,17 +4,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Sun, Moon, ChevronDown } from "lucide-react";
 import { useProjectData } from "@/lib/ProjectDataContext";
 import { useTheme } from "next-themes";
-
-const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "Projects", path: "/projects" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "About", path: "/about" },
-  { label: "Contact", path: "/contact" },
-];
+import { useLanguage } from "@/lib/LanguageContext";
 
 function FullScreenMenu({ isOpen, onClose }) {
+  const { text } = useLanguage();
   const { projects } = useProjectData();
+  const localizedNavLinks = [
+    { label: text.home, path: "/" },
+    { label: text.projects, path: "/projects" },
+    { label: text.gallery, path: "/gallery" },
+    { label: text.about, path: "/about" },
+    { label: text.contact, path: "/contact" },
+  ];
   const [rotation, setRotation] = useState(0);
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -35,7 +36,7 @@ function FullScreenMenu({ isOpen, onClose }) {
       e.preventDefault();
       const radius = Math.min(window.innerWidth, window.innerHeight) * 0.85;
       const spread = 22;
-      const halfSpan = ((navLinks.length - 1) / 2) * spread;
+      const halfSpan = ((localizedNavLinks.length - 1) / 2) * spread;
       const bufferDeg = (100 / radius) * (180 / Math.PI);
       targetRotation.current -= e.deltaY * 0.04;
       targetRotation.current = Math.max(-(halfSpan + bufferDeg), Math.min(halfSpan, targetRotation.current));
@@ -124,9 +125,9 @@ function FullScreenMenu({ isOpen, onClose }) {
             )}
 
             {/* Nav items on circle perimeter */}
-            {navLinks.map((link, i) => {
+            {localizedNavLinks.map((link, i) => {
               const spread = 22 * (Math.PI / 180);
-              const angle = (i - (navLinks.length - 1) / 2) * spread;
+              const angle = (i - (localizedNavLinks.length - 1) / 2) * spread;
               const x = cx + RADIUS * Math.cos(angle);
               const y = cy + RADIUS * Math.sin(angle);
               const counterRotate = -rotation;
@@ -147,7 +148,7 @@ function FullScreenMenu({ isOpen, onClose }) {
                       <span className="font-mono text-xs text-white/40 tracking-widest">
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      {link.label === 'Projects' ? (
+                      {link.path === '/projects' ? (
                         <div className="flex items-center gap-3">
                           <Link
                             to={link.path}
@@ -176,7 +177,7 @@ function FullScreenMenu({ isOpen, onClose }) {
                           {link.label}
                         </Link>
                       )}
-                      {link.label === 'Projects' && projectsOpen && (
+                      {link.path === '/projects' && projectsOpen && (
                         <div className="mt-3 flex flex-col gap-1 pl-1">
                           {projects.map((p, pi) => (
                             <Link
@@ -211,6 +212,7 @@ function AnimatedLogo() {
 
 export default function PerimeterNav() {
   const { theme, setTheme } = useTheme();
+  const { text } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [heroVisible, setHeroVisible] = useState(true);
   const location = useLocation();
@@ -240,7 +242,7 @@ export default function PerimeterNav() {
       <div className="fixed inset-0 z-40 pointer-events-none" aria-hidden="true">
         {/* Unified header background */}
         <div
-          className="pointer-events-none md:hidden fixed top-4 left-4 right-4 flex h-[82px] items-start justify-between overflow-visible sm:top-6 sm:left-6 sm:right-6"
+          className="pointer-events-none lg:hidden fixed top-4 left-4 right-4 flex h-[82px] items-start justify-between overflow-visible sm:top-6 sm:left-6 sm:right-6"
           style={{
             backgroundColor: shouldShowBackground ? 'rgba(255, 255, 255, 0.6)' : 'transparent',
             backdropFilter: shouldShowBackground ? 'blur(10px)' : 'none',
@@ -281,12 +283,12 @@ export default function PerimeterNav() {
             }}
             aria-label="Open menu"
           >
-            Menu
+              {text.menu}
           </button>
         </div>
 
         {/* Desktop layout */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           {/* Top Left  -  Name */}
           <Link
             to="/"
@@ -319,7 +321,7 @@ export default function PerimeterNav() {
             }}
             aria-label="Open menu"
           >
-            Menu
+            {text.menu}
           </button>
         </div>
 
@@ -328,10 +330,10 @@ export default function PerimeterNav() {
         {/* Bottom Right  -  CTA */}
         <Link
           to="/contact"
-          className="pointer-events-auto absolute bottom-[26px] right-[26px] font-mono text-xs md:text-sm tracking-widest uppercase hover:text-cobalt transition-colors duration-500 focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4"
+          className="pointer-events-auto absolute bottom-[26px] right-[26px] font-mono text-xs md:text-sm tracking-widest uppercase hover:text-cobalt transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4"
           style={{ color: isProjectPage && heroVisible ? '#F5F5F7' : undefined }}
         >
-          Commission a Piece &gt;
+          {text.commission} &gt;
         </Link>
       </div>
 

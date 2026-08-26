@@ -2,10 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useProjectData } from "@/lib/ProjectDataContext";
 import { projects as bundledProjects } from "@/lib/projectData";
+import { useLanguage } from "@/lib/LanguageContext";
 
-const INFO_TEXTS = ["Fashion Designer  /  Cutter  /  Tailor  /  Model",];
-
-function TypewriterInfo({ isInView }) {
+function TypewriterInfo({ isInView, text }) {
   const [visibleTexts, setVisibleTexts] = useState([]);
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,8 +17,8 @@ function TypewriterInfo({ isInView }) {
   }, [isInView]);
 
   useEffect(() => {
-    if (!typing || currentIndex >= INFO_TEXTS.length) return;
-    const full = INFO_TEXTS[currentIndex];
+    if (!typing || currentIndex >= 1) return;
+    const full = text;
     let i = 0;
     setCurrentText("");
     const timer = setInterval(() => {
@@ -35,16 +34,16 @@ function TypewriterInfo({ isInView }) {
       }
     }, 40);
     return () => clearInterval(timer);
-  }, [typing, currentIndex]);
+  }, [typing, currentIndex, text]);
 
   return (
     <>
       <div className="flex gap-6 leading-tight">
         {visibleTexts.slice(0, 2).map((t, i) => <span key={i}>{t}</span>)}
-        {currentIndex === 2 && <span>{currentText}<span className="opacity-70">|</span></span>}
+        {currentIndex === 0 && <span>{currentText}<span className="opacity-70">|</span></span>}
       </div>
       {visibleTexts.slice(2).map((t, i) => <div key={i + 2} className="-mt-1">{t}</div>)}
-      {currentIndex > 2 && currentIndex < INFO_TEXTS.length && (
+      {currentIndex > 0 && currentIndex < 1 && (
         <span>{currentText}<span className="opacity-70">|</span></span>
       )}
     </>
@@ -101,6 +100,7 @@ const mobileHotspots = mobilePlacements.map((placement, i) => ({
 }));
 
 export default function HeroSection() {
+  const { text } = useLanguage();
   const { projects } = useProjectData();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -217,7 +217,7 @@ export default function HeroSection() {
           transition={{ duration: 0.3, delay: 0.6 }}
           className="flex flex-col md:flex-row gap-2 md:gap-6 text-xs md:text-sm font-mono tracking-widest uppercase text-muted-foreground mt-8 leading-none"
         >
-          <TypewriterInfo isInView={isInView} />
+          <TypewriterInfo isInView={isInView} text={text.heroRole} />
         </motion.div>
       </motion.div>
     </section>

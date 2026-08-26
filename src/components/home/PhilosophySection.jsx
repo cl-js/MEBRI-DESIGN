@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const philosophyText = "I believe a garment is never just fabric  -  it is memory made wearable. Every piece begins with the cloth, continues with the hand, and resolves in how it moves on the body. The goal is never novelty. The goal is to carry heritage forward, one cut at a time."
 
@@ -24,6 +25,7 @@ function AnimatedParagraph({ text }) {
 }
 
 export default function PhilosophySection() {
+  const { text } = useLanguage();
   const ctaRef = useRef(null);
   const isCtaInView = useInView(ctaRef, { once: true, margin: "-40px" });
 
@@ -31,12 +33,12 @@ export default function PhilosophySection() {
     <section className="py-24 md:py-40 px-6 md:px-8" aria-label="Design Philosophy">
       <div>
         <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground block mb-8 md:mb-12">
-          The Craft
+          {text.craft}
         </span>
 
         <div className="mb-16">
           <div className="font-body text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground leading-loose max-w-4xl">
-            <AnimatedParagraph text={philosophyText} />
+            <AnimatedParagraph text={text.philosophy} />
           </div>
         </div>
 
@@ -51,13 +53,13 @@ export default function PhilosophySection() {
             to="/about"
             className="font-mono text-sm tracking-widest uppercase text-foreground hover:text-cobalt transition-colors duration-300 border-b border-foreground/20 hover:border-cobalt pb-1 focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4"
           >
-            Read My Story &gt;
+            {text.readStory} &gt;
           </Link>
           <Link
             to="/contact"
             className="font-mono text-sm tracking-widest uppercase text-foreground hover:text-cobalt transition-colors duration-300 border-b border-foreground/20 hover:border-cobalt pb-1 focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4"
           >
-            Commission a Piece &gt;
+            {text.commission} &gt;
           </Link>
         </motion.div>
       </div>

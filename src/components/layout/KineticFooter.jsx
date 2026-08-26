@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { languageOptions, useLanguage } from "@/lib/LanguageContext";
 
 const services = ["Bespoke Tailoring", "Traditional Wear", "Fashion Design", "Pattern Cutting", "Runway Modeling", "Bridal Couture"];
 const awards = ["Addis Fashion Week", "Hub of Africa Fashion Week", "Ethiopian Heritage Award", "Africa Fashion International", "Vogue Africa", "FESPACO"];
@@ -68,6 +69,7 @@ function MarqueeRow({ items, direction = "left" }) {
 }
 
 export default function KineticFooter() {
+  const { language, setLanguage, text } = useLanguage();
   return (
     <footer className="relative py-16 md:pt-24 md:pb-[26px] overflow-hidden">
       <div className="space-y-4 mb-8 md:mb-24">
@@ -77,15 +79,15 @@ export default function KineticFooter() {
       <div className="px-6 md:px-8 lg:px-12">
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-8 mb-12 md:mb-16">
           <div>
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">Navigation</h3>
+            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">{text.navigation}</h3>
             <div className="flex flex-col gap-3">
-              <Link to="/" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Home</Link>
-              <Link to="/about" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">About</Link>
-              <Link to="/contact" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Contact</Link>
+              <Link to="/" className="font-body text-sm text-foreground hover:text-cobalt transition-colors">{text.home}</Link>
+              <Link to="/about" className="font-body text-sm text-foreground hover:text-cobalt transition-colors">{text.about}</Link>
+              <Link to="/contact" className="font-body text-sm text-foreground hover:text-cobalt transition-colors">{text.contact}</Link>
             </div>
           </div>
           <div className="ml-[15px] md:ml-0">
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">Social</h3>
+            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">{text.social}</h3>
             <div className="flex flex-col gap-3">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Instagram</a>
               <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Behance</a>
@@ -100,7 +102,7 @@ export default function KineticFooter() {
             </div>
           </div>
           <div>
-            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">Legal</h3>
+            <h3 className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">{text.legal}</h3>
             <div className="flex flex-col gap-3">
               <Link to="/privacy" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Privacy Policy</Link>
               <Link to="/accessibility" className="font-body text-sm text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4">Accessibility</Link>
@@ -109,10 +111,16 @@ export default function KineticFooter() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 pt-8 md:pt-0 border-t border-border md:border-t-0">
+          <label className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            <span>{text.switchLanguage}</span>
+            <select aria-label={text.switchLanguage} value={language} onChange={(event) => setLanguage(event.target.value)} className="border border-border bg-background px-2 py-2 text-foreground">
+              {languageOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+            </select>
+          </label>
           <Link
             to="/contact"
             className="font-mono text-xs tracking-widest uppercase text-foreground hover:text-cobalt transition-colors focus:outline-none focus:ring-2 focus:ring-cobalt focus:ring-offset-4 hidden">
-            Commission a Piece &gt;
+            {text.commission} &gt;
           </Link>
           <span className="font-mono text-xs text-muted-foreground">&copy; 2026 Mebrahtom Tadesse. Built on Aman.Dev.</span>
         </div>
